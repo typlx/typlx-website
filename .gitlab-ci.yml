@@ -1,0 +1,15 @@
+default:
+  tags:
+    - kuber
+
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
+
+test:
+  stage: test
+  script:
+    - echo "Verifying static site files..."
+    - test -f index.html && echo "index.html OK"
+    - test -f privacy.html && echo "privacy.html OK"
+    - test -f css/style.css && echo "style.css OK"
+    - echo "All checks passed."
