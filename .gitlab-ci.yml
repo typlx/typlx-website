@@ -32,3 +32,24 @@ production:
     - auto-deploy persist_environment_url
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+staging:
+  stage: production
+  image: registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v2.135.0
+  variables:
+    KUBE_INGRESS_BASE_DOMAIN: app.varteq.dev
+  environment:
+    name: staging
+    url: http://typlix-typlx-website.app.varteq.dev
+  script:
+    - auto-deploy check_kube_domain
+    - auto-deploy download_chart
+    - auto-deploy use_kube_context || true
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
+    - auto-deploy deploy
+    - auto-deploy delete canary
+    - auto-deploy persist_environment_url
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
