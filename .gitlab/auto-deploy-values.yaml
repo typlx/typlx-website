@@ -1,0 +1,9 @@
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  hosts:
+    - typlx.com
+    - www.typlx.com
+  tls:
+    enabled: true
+    secretName: typlx-com-tls
