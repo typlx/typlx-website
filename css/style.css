@@ -432,6 +432,30 @@ body {
     color: var(--color-text-light);
 }
 
+.install__cta {
+    margin-bottom: 24px;
+}
+
+.install__compatible {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.install__secondary {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+}
+
+.install__secondary a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.install__secondary a:hover {
+    text-decoration: underline;
+}
+
 /* ---- Open Source ---- */
 .open-source {
     padding: 100px 0;
