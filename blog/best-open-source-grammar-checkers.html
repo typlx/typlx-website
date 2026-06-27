@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Best Open-Source Grammar Checkers in 2026 - Typlx Blog</title>
+    <meta name="description" content="From classic rule-based systems to the latest LLM-powered assistants, here are the best open-source grammar checkers you should be using today.">
+    <meta property="og:title" content="The Best Open-Source Grammar Checkers in 2026">
+    <meta property="og:description" content="From classic rule-based systems to the latest LLM-powered assistants, here are the best open-source grammar checkers you should be using today.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://typlx.com/blog/best-open-source-grammar-checkers.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Best Open-Source Grammar Checkers in 2026">
+    <meta name="twitter:description" content="From classic rule-based systems to the latest LLM-powered assistants, here are the best open-source grammar checkers you should be using today.">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The Best Open-Source Grammar Checkers in 2026",
+        "description": "From classic rule-based systems to the latest LLM-powered assistants, here are the best open-source grammar checkers you should be using today.",
+        "datePublished": "2026-06-19",
+        "author": { "@type": "Organization", "name": "Typlx" },
+        "publisher": { "@type": "Organization", "name": "Typlx", "url": "https://typlx.com" },
+        "mainEntityOfPage": "https://typlx.com/blog/best-open-source-grammar-checkers.html"
+    }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="nav__logo"><span class="nav__logo-icon">T</span><span class="nav__logo-text">Typlx</span></a>
+            <ul class="nav__links">
+                <li><a href="../index.html#features">Features</a></li>
+                <li><a href="../index.html#how-it-works">How It Works</a></li>
+                <li><a href="../index.html#open-source">Open Source</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+            <a href="../index.html#install" class="btn btn--primary btn--sm">Install Free</a>
+            <button class="nav__toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+    <main class="blog-post">
+        <div class="container">
+            <div class="blog-post__content">
+                <a href="/blog/" class="blog-post__back">&larr; All posts</a>
+                <h1>The Best Open-Source Grammar Checkers in 2026</h1>
+                <p class="blog-post__date">June 19, 2026</p>
+
+                <p>Grammar checkers have come a long way. What used to mean a handful of regex rules and a static dictionary has evolved into a rich ecosystem of open-source tools &mdash; some powered by large language models, others by hand-crafted linguistic rules, and a few by blazing-fast compiled parsers. Whether you care most about privacy, speed, multilingual support, or style enforcement, there is an open-source option that fits.</p>
+
+                <p>We surveyed the landscape and narrowed it down to four standout projects. Here they are.</p>
+
+                <h2>1. Typlx &mdash; Best for AI &amp; Privacy</h2>
+                <p><strong>GitHub:</strong> <a href="https://github.com/typlx/typlx" target="_blank" rel="noopener">typlx/typlx</a></p>
+                <p>Typlx is an LLM-powered grammar checker built from the ground up with a local-first architecture. Instead of shipping your text to a remote API, Typlx connects to a local inference backend like Ollama or LocalAI, keeping every keystroke on your machine.</p>
+                <ul>
+                    <li><strong>LLM-powered corrections</strong> &mdash; understands context, tone, and technical jargon far better than rule-based alternatives.</li>
+                    <li><strong>Local-first privacy</strong> &mdash; your text never leaves your device unless you explicitly choose a cloud provider.</li>
+                    <li><strong>Chrome Extension &amp; Firefox Add-on</strong> &mdash; works inline on any website, from Gmail to GitHub.</li>
+                    <li><strong>Open source (MIT)</strong> &mdash; fully auditable, no telemetry, no account required.</li>
+                </ul>
+                <p>If you want the accuracy of a large language model without sacrificing privacy, Typlx is the clear choice.</p>
+
+                <h2>2. LanguageTool &mdash; Classic All-Rounder</h2>
+                <p><strong>GitHub:</strong> <a href="https://github.com/languagetool-org/languagetool" target="_blank" rel="noopener">languagetool-org/languagetool</a></p>
+                <p>LanguageTool is the veteran of the open-source grammar checking world. Written in Java, it ships with thousands of hand-written rules across more than 30 languages and has been battle-tested for over a decade.</p>
+                <ul>
+                    <li><strong>30+ languages</strong> &mdash; by far the widest language coverage of any open-source checker.</li>
+                    <li><strong>Rule-based engine</strong> &mdash; predictable, deterministic results with no model hallucinations.</li>
+                    <li><strong>Self-hosted option</strong> &mdash; run the server on your own infrastructure for full data control.</li>
+                    <li><strong>Mature ecosystem</strong> &mdash; browser extensions, LibreOffice integration, and a rich API.</li>
+                </ul>
+                <p>LanguageTool is the right pick when you need multilingual support or a proven, stable system with a large community behind it.</p>
+
+                <h2>3. Harper &mdash; Best for Speed</h2>
+                <p><strong>GitHub:</strong> <a href="https://github.com/elijah-potter/harper" target="_blank" rel="noopener">elijah-potter/harper</a></p>
+                <p>Harper is a grammar checker written in Rust, designed to be as fast as a linter. It parses your text, builds an internal representation, and runs checks in microseconds &mdash; making it ideal for editor integrations where latency matters.</p>
+                <ul>
+                    <li><strong>Written in Rust</strong> &mdash; near-instant feedback, even on large documents.</li>
+                    <li><strong>High-performance</strong> &mdash; designed to feel like a code linter, not a cloud round-trip.</li>
+                    <li><strong>VS Code and Neovim plugins</strong> &mdash; first-class support for the editors developers actually use.</li>
+                    <li><strong>Lightweight</strong> &mdash; small binary, minimal dependencies, easy to embed.</li>
+                </ul>
+                <p>If raw speed and tight editor integration are your top priorities, Harper is hard to beat.</p>
+
+                <h2>4. Vale &mdash; Best for Style Guides</h2>
+                <p><strong>GitHub:</strong> <a href="https://github.com/errata-ai/vale" target="_blank" rel="noopener">errata-ai/vale</a></p>
+                <p>Vale is not a grammar checker in the traditional sense &mdash; it is a linter for prose. You define style rules (or adopt existing ones like Microsoft, Google, or write-good), and Vale enforces them across your documentation.</p>
+                <ul>
+                    <li><strong>Style guide enforcement</strong> &mdash; ensure consistent tone, terminology, and formatting across an entire team.</li>
+                    <li><strong>CI/CD integration</strong> &mdash; run Vale as a step in your pipeline to catch style violations before they ship.</li>
+                    <li><strong>Extensible rules</strong> &mdash; write custom rules in YAML to match your organization's voice.</li>
+                    <li><strong>Supports Markdown, AsciiDoc, RST, and more</strong> &mdash; built for technical writing workflows.</li>
+                </ul>
+                <p>Vale shines when you need to enforce a house style across a documentation team or an open-source project with many contributors.</p>
+
+                <h2>Conclusion: Which One Should You Use?</h2>
+                <p>The best grammar checker depends on what you value most:</p>
+                <ul>
+                    <li><strong>AI accuracy + privacy:</strong> Choose <strong>Typlx</strong>. Its LLM-powered engine catches nuanced errors that rule-based systems miss, and its local-first architecture means your data stays yours.</li>
+                    <li><strong>Multilingual support:</strong> Choose <strong>LanguageTool</strong>. No other open-source tool comes close to its breadth of language coverage.</li>
+                    <li><strong>Raw speed in your editor:</strong> Choose <strong>Harper</strong>. Its Rust core delivers instant feedback without breaking your flow.</li>
+                    <li><strong>Style consistency across a team:</strong> Choose <strong>Vale</strong>. Its rule-based linter integrates into CI/CD pipelines and keeps every contributor writing in the same voice.</li>
+                </ul>
+                <p>Of course, these tools are not mutually exclusive. Many teams run Vale for style enforcement in CI and use Typlx or LanguageTool for real-time writing assistance. The beauty of open source is that you can mix and match until you find the workflow that fits.</p>
+
+                <div class="blog-post__cta">
+                    <p>Ready to try Typlx?</p>
+                    <a href="../index.html#install" class="btn btn--primary">Install Free</a>
+                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" class="btn btn--outline" target="_blank" rel="noopener">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><div class="container"><div class="footer__bottom"><p>&copy; 2026 Typlx. Open source under the MIT License.</p></div></div></footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>

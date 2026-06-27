@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual Corrections: How Typlx Uses LLMs for Better Grammar Checking - Typlx Blog</title>
+    <meta name="description" content="Why our LLM-powered approach is a generational leap over rule-based grammar checking systems.">
+    <meta property="og:title" content="Contextual Corrections: How Typlx Uses LLMs for Better Grammar Checking">
+    <meta property="og:description" content="Why our LLM-powered approach is a generational leap over rule-based grammar checking systems.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://typlx.com/blog/contextual-corrections.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contextual Corrections: How Typlx Uses LLMs for Better Grammar Checking">
+    <meta name="twitter:description" content="Why our LLM-powered approach is a generational leap over rule-based grammar checking systems.">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Contextual Corrections: How Typlx Uses LLMs for Better Grammar Checking",
+        "description": "Why our LLM-powered approach is a generational leap over rule-based grammar checking systems.",
+        "datePublished": "2026-05-29",
+        "author": { "@type": "Organization", "name": "Typlx" },
+        "publisher": { "@type": "Organization", "name": "Typlx", "url": "https://typlx.com" },
+        "mainEntityOfPage": "https://typlx.com/blog/contextual-corrections.html"
+    }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="nav__logo"><span class="nav__logo-icon">T</span><span class="nav__logo-text">Typlx</span></a>
+            <ul class="nav__links">
+                <li><a href="../index.html#features">Features</a></li>
+                <li><a href="../index.html#how-it-works">How It Works</a></li>
+                <li><a href="../index.html#open-source">Open Source</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+            <a href="../index.html#install" class="btn btn--primary btn--sm">Install Free</a>
+            <button class="nav__toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+    <main class="blog-post">
+        <div class="container">
+            <div class="blog-post__content">
+                <a href="/blog/" class="blog-post__back">&larr; All posts</a>
+                <h1>Contextual Corrections: How Typlx Uses LLMs for Better Grammar Checking</h1>
+                <p class="blog-post__date">May 29, 2026</p>
+
+                <p>For decades, grammar checkers have worked the same way: match a pattern, flag a violation, suggest a replacement. This rule-based approach got us surprisingly far, but it has a hard ceiling. Language is not a set of rules &mdash; it is a living, shifting, context-dependent system. And that is exactly where large language models change the game.</p>
+
+                <h2>The Problem with Rules</h2>
+                <p>Rule-based grammar checkers work by encoding linguistic patterns into static rules. &ldquo;If a sentence starts with X and contains Y, flag it.&rdquo; This approach has two fundamental problems:</p>
+                <p><strong>False positives.</strong> Languages are fluid. Slang evolves, technical jargon proliferates, and context changes meaning. A rule that flags &ldquo;less&rdquo; when it should be &ldquo;fewer&rdquo; might be correct in a formal essay but wrong in a casual Slack message. A rule that flags passive voice might catch perfectly appropriate scientific writing. The more rules you add, the noisier the output becomes.</p>
+                <p><strong>False negatives.</strong> Rules can only catch what they are written to catch. If a sentence is grammatically correct but semantically confusing, a rule-based system will wave it through. &ldquo;The manager said the engineer was responsible for the delay&rdquo; &mdash; who was responsible? A rule engine does not know. A language model does.</p>
+                <p>The result is a frustrating experience: too many wrong flags on things that are fine, and silence on things that genuinely need fixing.</p>
+
+                <h2>The Typlx Advantage: Contextual Intelligence</h2>
+                <p>Typlx takes a fundamentally different approach. Instead of pattern matching, it sends your text to a large language model that reads and understands the full context of what you are writing. This enables three capabilities that rule-based systems simply cannot replicate.</p>
+
+                <h3>Developer-First Context</h3>
+                <p>Developers write in a unique dialect. Terms like &ldquo;kubectl,&rdquo; &ldquo;refactor,&rdquo; &ldquo;middleware,&rdquo; and &ldquo;sharding&rdquo; are not in any standard dictionary. A rule-based checker underlines them in red. Typlx understands that these are valid technical terms and leaves them alone &mdash; while still catching the actual typo two words later.</p>
+                <p>More importantly, Typlx understands technical context. It knows that &ldquo;the pod was evicted&rdquo; is not passive voice worth flagging in a Kubernetes incident report. It knows that &ldquo;nullable&rdquo; is a real word when you are writing about TypeScript. This context-awareness dramatically reduces noise for technical writers.</p>
+
+                <h3>Tone and Clarity</h3>
+                <p>Grammar is only half the battle. The other half is clarity. Typlx does not just fix broken sentences &mdash; it suggests concise rewrites that make your meaning sharper. If your sentence is grammatically correct but unnecessarily wordy, Typlx will offer a tighter alternative. If your tone shifts awkwardly between formal and casual, it will flag the inconsistency.</p>
+                <p>This is the kind of feedback that previously required a human editor. LLMs make it available in real time, inline, as you type.</p>
+
+                <h3>Privacy-Preserving Inference</h3>
+                <p>The obvious concern with sending text to an LLM is privacy. Typlx addresses this head-on with a local-first architecture. By default, your text is processed by a model running on your own machine via Ollama or LocalAI. Nothing leaves your device. Nothing is logged. Nothing is trained on.</p>
+                <p>If you prefer a cloud model for higher accuracy, Typlx supports that too &mdash; but the choice is always yours, and the connection is always direct to the provider you choose. Typlx never proxies your text through its own servers.</p>
+
+                <h2>How It Works</h2>
+                <p>Under the hood, Typlx follows a three-step pipeline:</p>
+                <ol>
+                    <li><strong>Context Extraction.</strong> When you type in a text field, the Typlx extension captures the surrounding text and metadata &mdash; what website you are on, what kind of field it is (email body, code comment, chat message), and any relevant surrounding content. This context is bundled into a structured prompt.</li>
+                    <li><strong>LLM Analysis.</strong> The prompt is sent to your configured LLM backend (local or cloud). The model analyzes the text holistically &mdash; grammar, spelling, punctuation, tone, clarity, and technical accuracy &mdash; and returns a set of suggested corrections with explanations.</li>
+                    <li><strong>Surgical Replacement.</strong> Typlx applies corrections inline, replacing only the specific text that needs fixing. You see a clean diff of what changed and can accept or dismiss each suggestion individually. The original text is never modified without your approval.</li>
+                </ol>
+                <p>The entire round-trip typically takes under two seconds with a local model, and under one second with a cloud provider.</p>
+
+                <h2>Conclusion</h2>
+                <p>Rule-based grammar checkers were the best we had for a long time, and they still have their place. But for anyone who writes technical content, values privacy, and wants corrections that actually understand what they are saying, LLM-powered checking is a generational leap forward.</p>
+                <p>Typlx is our attempt to make that leap accessible: open source, local-first, and designed for the way developers and technical writers actually work. We think once you try contextual corrections, you will not want to go back to red squiggly lines that do not understand your code.</p>
+
+                <div class="blog-post__cta">
+                    <p>Ready to try Typlx?</p>
+                    <a href="../index.html#install" class="btn btn--primary">Install Free</a>
+                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" class="btn btn--outline" target="_blank" rel="noopener">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><div class="container"><div class="footer__bottom"><p>&copy; 2026 Typlx. Open source under the MIT License.</p></div></div></footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>

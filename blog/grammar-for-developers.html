@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Code, Clean Docs: Why Every Developer Needs a Grammar Checker - Typlx Blog</title>
+    <meta name="description" content="Your documentation is your product. Here's why every developer needs a dedicated, privacy-first grammar checker.">
+    <meta property="og:title" content="Clean Code, Clean Docs: Why Every Developer Needs a Grammar Checker">
+    <meta property="og:description" content="Your documentation is your product. Here's why every developer needs a dedicated, privacy-first grammar checker.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://typlx.com/blog/grammar-for-developers.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Clean Code, Clean Docs: Why Every Developer Needs a Grammar Checker">
+    <meta name="twitter:description" content="Your documentation is your product. Here's why every developer needs a dedicated, privacy-first grammar checker.">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Clean Code, Clean Docs: Why Every Developer Needs a Grammar Checker",
+        "description": "Your documentation is your product. Here's why every developer needs a dedicated, privacy-first grammar checker.",
+        "datePublished": "2026-06-05",
+        "author": { "@type": "Organization", "name": "Typlx" },
+        "publisher": { "@type": "Organization", "name": "Typlx", "url": "https://typlx.com" },
+        "mainEntityOfPage": "https://typlx.com/blog/grammar-for-developers.html"
+    }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="nav__logo"><span class="nav__logo-icon">T</span><span class="nav__logo-text">Typlx</span></a>
+            <ul class="nav__links">
+                <li><a href="../index.html#features">Features</a></li>
+                <li><a href="../index.html#how-it-works">How It Works</a></li>
+                <li><a href="../index.html#open-source">Open Source</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+            <a href="../index.html#install" class="btn btn--primary btn--sm">Install Free</a>
+            <button class="nav__toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+    <main class="blog-post">
+        <div class="container">
+            <div class="blog-post__content">
+                <a href="/blog/" class="blog-post__back">&larr; All posts</a>
+                <h1>Clean Code, Clean Docs: Why Every Developer Needs a Grammar Checker</h1>
+                <p class="blog-post__date">June 5, 2026</p>
+
+                <p>Developers spend hours perfecting their code &mdash; linting, formatting, reviewing, testing. But when it comes to the words surrounding that code &mdash; documentation, commit messages, pull request descriptions, issue comments &mdash; the same rigor rarely applies. That is a mistake, and here is why.</p>
+
+                <h2>Documentation Is the First User Interface</h2>
+                <p>Before anyone runs your code, they read your README. It is the front door to your project. A README with typos, broken grammar, and unclear instructions sends an immediate signal: this project might not be well-maintained.</p>
+                <p>That first impression matters more than most developers realize. A study by GitHub found that projects with clear, well-written documentation receive significantly more contributions than those without. Your README is not just instructions &mdash; it is a trust signal. It tells potential users and contributors that you care about quality at every level, not just in the code.</p>
+                <p>The same applies to API documentation, onboarding guides, and architecture decision records. If your docs are confusing, people will not file a bug report &mdash; they will simply leave.</p>
+
+                <h2>Commit Messages: Your Project's History</h2>
+                <p>Commit messages are the narrative of your project. Six months from now, when you are trying to understand why a particular change was made, the commit message is all you have. Vague or poorly written messages turn your git history into noise.</p>
+                <p>Consider the difference:</p>
+                <ul>
+                    <li><strong>Bad:</strong> <code>fix stuff</code></li>
+                    <li><strong>Bad:</strong> <code>updated the thing</code></li>
+                    <li><strong>Bad:</strong> <code>wip dont merge</code></li>
+                    <li><strong>Good:</strong> <code>fix race condition in session cleanup on concurrent logout</code></li>
+                    <li><strong>Good:</strong> <code>add retry logic to webhook delivery with exponential backoff</code></li>
+                    <li><strong>Good:</strong> <code>remove deprecated v1 API endpoints ahead of 3.0 release</code></li>
+                </ul>
+                <p>The good messages are not just grammatically correct &mdash; they are clear, specific, and searchable. A grammar checker will not turn a lazy message into a great one, but it will catch the typos and unclear phrasing that make good messages harder to read.</p>
+
+                <h2>The Cost of Miscommunication</h2>
+                <p>We live in an async world. Most development teams are distributed across time zones, and the majority of communication happens in writing &mdash; Slack messages, pull request reviews, issue descriptions, design documents, and emails.</p>
+                <p>In this context, clear writing is a superpower. An ambiguous sentence in a code review can waste a full day of back-and-forth. A poorly worded issue description can send a developer down the wrong path for hours. A confusing error message can generate dozens of unnecessary support tickets.</p>
+                <p>The cost of miscommunication is not hypothetical &mdash; it shows up in delayed releases, frustrated teammates, and users who cannot figure out how to use your product. A grammar checker is not going to solve all communication problems, but it eliminates the low-hanging fruit: the typos, the garbled sentences, the missing words that force people to re-read and guess at your meaning.</p>
+
+                <h2>Privacy: The Developer's Non-Negotiable</h2>
+                <p>Here is the catch: most grammar checkers on the market require you to send your text to a remote server. For a developer, that is a non-starter. You are writing about internal APIs, unreleased features, security vulnerabilities, customer data, and proprietary architecture. None of that should be flowing through a third-party grammar checking service.</p>
+                <p>This is why Typlx exists. It is open source, so you can read every line of code. It is local-first, so your text stays on your machine. And it is powered by LLMs, so it actually understands what you are writing instead of just matching patterns.</p>
+                <p>You would not use a closed-source, cloud-dependent linter for your code. Your prose deserves the same standard.</p>
+
+                <h2>Integrating with Your Workflow</h2>
+                <p>The best tool is the one you actually use. That is why we have focused on putting Typlx where developers already write:</p>
+                <ul>
+                    <li><strong>Chrome Extension</strong> &mdash; grammar checking on GitHub, GitLab, Jira, Confluence, Slack, and every other web app you use daily. Available now.</li>
+                    <li><strong>Firefox Add-on</strong> &mdash; the same experience for Firefox users who value privacy. Available now.</li>
+                    <li><strong>CLI &amp; GitHub Actions</strong> &mdash; lint your documentation and commit messages in CI/CD, the same way you lint your code. Coming soon.</li>
+                    <li><strong>VS Code Extension</strong> &mdash; inline grammar checking in your editor, right next to your code. Coming soon.</li>
+                </ul>
+                <p>The goal is to make grammar checking as invisible and automatic as code formatting. You should not have to think about it &mdash; it should just be part of your workflow.</p>
+
+                <h2>Conclusion</h2>
+                <p>Clean code and clean docs are not separate concerns &mdash; they are two sides of the same coin. The care you put into naming variables, structuring functions, and writing tests should extend to the words you write around your code.</p>
+                <p>Your documentation is your product's first impression. Your commit messages are your project's memory. Your pull request descriptions are how you communicate with your team. All of them deserve a grammar checker that understands technical writing, respects your privacy, and fits into the way you already work.</p>
+                <p>That is what Typlx is for.</p>
+
+                <div class="blog-post__cta">
+                    <p>Ready to try Typlx?</p>
+                    <a href="../index.html#install" class="btn btn--primary">Install Free</a>
+                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" class="btn btn--outline" target="_blank" rel="noopener">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><div class="container"><div class="footer__bottom"><p>&copy; 2026 Typlx. Open source under the MIT License.</p></div></div></footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>
