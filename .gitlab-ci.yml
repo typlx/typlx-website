@@ -9,10 +9,29 @@ test:
   stage: test
   script:
     - echo "Verifying static site files..."
-    - test -f index.html && echo "index.html OK"
-    - test -f privacy.html && echo "privacy.html OK"
-    - test -f css/style.css && echo "style.css OK"
-    - echo "All checks passed."
+    - |
+      failed=0
+      for f in index.html privacy.html 404.html css/style.css css/blog.css js/main.js robots.txt sitemap.xml; do
+        if [ -f "$f" ] && [ -s "$f" ]; then
+          echo "OK $f"
+        else
+          echo "FAIL $f (missing or empty)"
+          failed=1
+        fi
+      done
+      for f in blog/*.html; do
+        if [ -f "$f" ] && [ -s "$f" ]; then
+          echo "OK $f"
+        else
+          echo "FAIL $f (missing or empty)"
+          failed=1
+        fi
+      done
+      if [ "$failed" -ne 0 ]; then
+        echo "FAILED: some deployed files are missing or empty"
+        exit 1
+      fi
+      echo "All deployed files verified."
 
 production:
   stage: production
