@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-Source Grammar Checking: How Typlx Works Under the Hood - Typlx Blog</title>
+    <meta name="description" content="A technical deep-dive into Typlx's open-source grammar checking architecture. Learn how local LLM inference powers browser extension grammar checking, how the Chrome extension is structured, and how you can contribute.">
+    <meta property="og:title" content="Open-Source Grammar Checking: How Typlx Works Under the Hood">
+    <meta property="og:description" content="A technical deep-dive into Typlx's open-source grammar checking architecture. Learn how local LLM inference powers browser extension grammar checking, how the Chrome extension is structured, and how you can contribute.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://typlx.com/blog/open-source-grammar-checking.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Open-Source Grammar Checking: How Typlx Works Under the Hood">
+    <meta name="twitter:description" content="A technical deep-dive into Typlx's open-source grammar checking architecture. Learn how local LLM inference powers browser extension grammar checking, how the Chrome extension is structured, and how you can contribute.">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Open-Source Grammar Checking: How Typlx Works Under the Hood",
+        "description": "A technical deep-dive into Typlx's open-source grammar checking architecture. Learn how local LLM inference powers browser extension grammar checking, how the Chrome extension is structured, and how you can contribute.",
+        "datePublished": "2026-06-27",
+        "author": { "@type": "Organization", "name": "Typlx" },
+        "publisher": { "@type": "Organization", "name": "Typlx", "url": "https://typlx.com" },
+        "mainEntityOfPage": "https://typlx.com/blog/open-source-grammar-checking.html"
+    }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="nav__logo"><span class="nav__logo-icon">T</span><span class="nav__logo-text">Typlx</span></a>
+            <ul class="nav__links">
+                <li><a href="../index.html#features">Features</a></li>
+                <li><a href="../index.html#how-it-works">How It Works</a></li>
+                <li><a href="../index.html#open-source">Open Source</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+            <a href="../index.html#install" class="btn btn--primary btn--sm">Install Free</a>
+            <button class="nav__toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+    <main class="blog-post">
+        <div class="container">
+            <div class="blog-post__content">
+                <a href="/blog/" class="blog-post__back">&larr; All posts</a>
+                <h1>Open-Source Grammar Checking: How Typlx Works Under the Hood</h1>
+                <p class="blog-post__date">June 27, 2026</p>
+
+                <p>Open-source grammar checking has come a long way, but there has always been a gap. <a href="https://languagetool.org/" target="_blank" rel="noopener">LanguageTool</a> offers an open-source core built on hand-written rules and pattern matching. <a href="https://github.com/elijah-potter/harper" target="_blank" rel="noopener">Harper</a> is a fast, Rust-based rule checker designed for speed and simplicity. Both are valuable projects, but neither delivers what modern writers increasingly need: LLM-powered, browser-integrated, local-first grammar checking. That combination simply did not exist as an open-source project until Typlx. This post is a technical deep-dive into how Typlx works, why it is built the way it is, and how you can contribute.</p>
+
+                <h2>The Central Design Constraint: Local-First</h2>
+
+                <p>Every architectural decision in Typlx flows from a single constraint: grammar checking must happen on the user's device. Your text never leaves your machine. This rules out the backend API approach that most commercial grammar checkers rely on, where your keystrokes are sent to a remote server for analysis. The trade-off is real &mdash; local inference requires the user to run a local model server, and smaller models cannot match the quality of the largest cloud-hosted LLMs. But the privacy guarantee is absolute, and for many users and organizations, that guarantee is non-negotiable. Typlx accepts this trade-off and optimizes within it rather than compromising on it.</p>
+
+                <h2>Architecture: The Chrome Extension</h2>
+
+                <p>Typlx ships as a Chrome extension built on Manifest V3, Chrome's current extension platform. Manifest V3 introduces a service worker model in place of persistent background pages, which influences how the extension manages state and communicates with the local LLM server. Here is the high-level directory structure:</p>
+
+                <pre><code>typlx-extension/
+├── manifest.json
+├── background/
+│   └── service-worker.js
+├── content/
+│   ├── content-script.js
+│   └── llm-bridge.js
+├── popup/
+│   ├── popup.html
+│   └── popup.js
+└── models/
+    └── grammar-model/</code></pre>
+
+                <h3>Content Script Layer</h3>
+
+                <p>The content script is injected into every page the user visits and has two numbered responsibilities:</p>
+                <ol>
+                    <li><strong>Input detection.</strong> The content script monitors the DOM for editable elements &mdash; text inputs, textareas, contenteditable regions, and rich text editors. It attaches event listeners and uses a debounce timer to avoid triggering grammar checks on every keystroke.</li>
+                    <li><strong>DOM annotation.</strong> When grammar suggestions are returned from the LLM, the content script annotates the page by underlining flagged text and attaching tooltip-style suggestion overlays. It manages the lifecycle of these annotations, removing them when the user edits the text or accepts a suggestion.</li>
+                </ol>
+
+                <h3>The LLM Bridge</h3>
+
+                <p>The LLM bridge (<code>llm-bridge.js</code>) is the layer responsible for communicating with the local model server. Typlx does not bundle its own inference engine. Instead, it communicates over HTTP with a locally running model server. The two primary supported backends are <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a> and <a href="https://localai.io/" target="_blank" rel="noopener">LocalAI</a>, though any OpenAI-compatible API running on localhost will work. All communication is strictly localhost-only &mdash; the bridge refuses to send requests to any non-local address. This is enforced at the code level and verified during the Chrome Web Store review process. The bridge handles prompt construction, request formatting, response parsing, and error handling (for example, when the local server is not running or the model has not been pulled yet).</p>
+
+                <h3>Service Worker</h3>
+
+                <p>The Manifest V3 service worker replaces the persistent background page from Manifest V2. In Typlx, the service worker handles:</p>
+                <ul>
+                    <li>Extension lifecycle management (installation, updates, enabling/disabling)</li>
+                    <li>Routing messages between the content script, the popup, and the LLM bridge</li>
+                    <li>Managing user preferences and extension state (which sites are enabled, sensitivity settings, model configuration)</li>
+                    <li>Badge updates to show the number of active suggestions on the current page</li>
+                    <li>Coordinating the wakeup/sleep cycle inherent to Manifest V3 service workers, ensuring that in-flight grammar checks are not lost when the worker is terminated</li>
+                </ul>
+
+                <h2>How Grammar Checking Works Step by Step</h2>
+
+                <p>Here is what happens from the moment you type to the moment you see a suggestion underline:</p>
+                <ol>
+                    <li><strong>Input detection with debounce timer.</strong> The content script detects a change in an editable element. A debounce timer (default: 800ms of inactivity) prevents the extension from firing on every keystroke. Only when the user pauses typing does the process continue.</li>
+                    <li><strong>Text extraction.</strong> The content script extracts the text content from the editable element. For simple inputs and textareas, this is straightforward. For contenteditable regions and rich text editors (Google Docs, Notion, etc.), the extraction logic walks the DOM tree and reconstructs the plain text while preserving paragraph boundaries.</li>
+                    <li><strong>Prompt construction.</strong> The extracted text is wrapped in a structured prompt designed for grammar checking. The prompt instructs the model to return a JSON array of suggestions, each containing the original text span, the suggested replacement, the category of error (spelling, grammar, style, punctuation), and a brief explanation.</li>
+                    <li><strong>Local inference via localhost fetch.</strong> The LLM bridge sends the constructed prompt to the local model server via a <code>fetch()</code> call to <code>http://localhost:&lt;port&gt;/v1/chat/completions</code>. The request includes parameters for temperature (set low, typically 0.1, for deterministic output) and max tokens. The bridge streams the response where the server supports it.</li>
+                    <li><strong>Result parsing.</strong> The bridge parses the model's response, extracting the JSON array of suggestions. It validates the structure, discards malformed entries, and maps each suggestion's text span back to the character offsets in the original extracted text.</li>
+                    <li><strong>DOM annotation.</strong> The content script receives the parsed suggestions and annotates the DOM. Each flagged span is wrapped in a highlight element with a colored underline (red for errors, blue for style suggestions). A click or hover on the underline reveals a tooltip with the suggestion, explanation, and accept/dismiss buttons.</li>
+                    <li><strong>User interaction.</strong> When the user accepts a suggestion, the content script replaces the flagged text in the editable element and removes the annotation. When the user dismisses a suggestion, only the annotation is removed. Accepted and dismissed suggestions are logged locally (never transmitted) to improve prompt construction over time.</li>
+                </ol>
+
+                <h2>Why LLMs Rather Than Rule-Based Checking?</h2>
+
+                <p>Rule-based grammar checkers like LanguageTool, Harper, and <a href="https://vale.sh/" target="_blank" rel="noopener">Vale</a> work by matching text against predefined patterns and rules. They are fast, predictable, and excellent for catching common errors &mdash; subject-verb agreement, comma splices, misspellings, and style guide violations. For many use cases, they are sufficient and arguably preferable.</p>
+
+                <p>LLMs bring a different capability: contextual understanding. Rather than matching patterns, an LLM processes the entire sentence (or paragraph) as a unit and evaluates it holistically. This produces advantages in several areas:</p>
+                <ul>
+                    <li><strong>Word choice in context.</strong> An LLM can distinguish between "affect" and "effect" based on the sentence's meaning, not just the surrounding words.</li>
+                    <li><strong>Awkward phrasing.</strong> Rule-based systems struggle with sentences that are grammatically correct but awkwardly constructed. LLMs can flag these and suggest more natural alternatives.</li>
+                    <li><strong>Tone and register.</strong> An LLM can detect when formal language appears in a casual context (or vice versa) and suggest adjustments.</li>
+                    <li><strong>Complex sentence structure.</strong> Dangling modifiers, misplaced clauses, and ambiguous pronoun references are difficult for rule-based systems but natural for LLMs to catch.</li>
+                    <li><strong>Multilingual and code-switching text.</strong> LLMs handle text that mixes languages or includes technical jargon more gracefully than rule-based systems with fixed dictionaries.</li>
+                </ul>
+
+                <p>The trade-offs are real. LLM inference is slower than rule matching. It requires a local model server. Smaller models will occasionally hallucinate suggestions that are incorrect. Typlx addresses this by keeping suggestion confidence thresholds high and by planning to bundle a lightweight, fine-tuned model specifically optimized for grammar checking in a future release, removing the need for users to install a separate model server.</p>
+
+                <h2>The Open-Source Model and What It Enables</h2>
+
+                <p>Typlx is open-source under the MIT License. This is not a marketing decision &mdash; it is a structural one. Open source enables four things that matter for a tool that processes your writing:</p>
+
+                <p><strong>Auditability.</strong> Any user, security researcher, or organization can read the source code and verify that text never leaves the device. You do not have to trust Typlx's privacy claims &mdash; you can verify them. The localhost-only constraint in the LLM bridge is visible in the code, and any attempt to change it would be visible in the commit history.</p>
+
+                <p><strong>Community contributions.</strong> Grammar checking is inherently language-specific and context-specific. The prompt templates, suggestion categories, and UI behaviors that work well for academic English may not work well for casual German or technical Japanese. An open-source model allows native speakers and domain experts to contribute improvements that the core team could not build alone.</p>
+
+                <p><strong>Forking and adaptation.</strong> Organizations with specific needs &mdash; compliance requirements, custom style guides, integration with internal tools &mdash; can fork Typlx and adapt it without waiting for upstream features. The MIT License imposes no restrictions on this.</p>
+
+                <p><strong>Trust without reliance on trust.</strong> Closed-source grammar checkers ask you to trust that they handle your data responsibly. Open-source grammar checkers let you verify it. This distinction matters especially for journalists, lawyers, medical professionals, and anyone writing sensitive content.</p>
+
+                <h2>How to Contribute</h2>
+
+                <p>Typlx welcomes contributions at every level. See <a href="https://github.com/typlx/chrome-grammar-fix-extension/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a> in the repository for detailed guidelines. Here are the main categories:</p>
+
+                <h3>Non-Code Contributions</h3>
+                <ul>
+                    <li>Bug reports with reproduction steps</li>
+                    <li>Prompt template improvements for better suggestion quality</li>
+                    <li>Documentation improvements and tutorials</li>
+                    <li>Translations and localization for non-English languages</li>
+                    <li>Testing with different local model servers and models</li>
+                    <li>Writing about Typlx, creating guides, or recording walkthroughs</li>
+                </ul>
+
+                <h3>Code Contributions</h3>
+                <ul>
+                    <li>Content script improvements (better detection of editable elements, support for more rich text editors)</li>
+                    <li>LLM bridge enhancements (support for additional model servers, streaming improvements, error handling)</li>
+                    <li>UI/UX improvements to the suggestion overlay and popup</li>
+                    <li>Performance optimizations (reducing debounce latency, caching repeated checks)</li>
+                    <li>Test coverage (unit tests, integration tests, end-to-end tests with Puppeteer)</li>
+                    <li>Accessibility improvements (keyboard navigation, screen reader support)</li>
+                </ul>
+
+                <h3>Infrastructure</h3>
+                <ul>
+                    <li>CI/CD pipeline improvements</li>
+                    <li>Automated testing against multiple Chrome versions</li>
+                    <li>Build system optimizations</li>
+                    <li>Model benchmarking infrastructure (comparing grammar-check quality across different local models)</li>
+                    <li>Documentation site generation and hosting</li>
+                </ul>
+
+                <h2>Get the Extension</h2>
+
+                <p>Typlx is free and open-source. You can install it from the <a href="https://chromewebstore.google.com/detail/typlix" target="_blank" rel="noopener">Chrome Web Store</a>, or clone the repository and build it yourself. If you try it and find something that could be better, open an issue or submit a pull request. Every contribution &mdash; from a typo fix in documentation to a new model server integration &mdash; makes the project better for everyone.</p>
+
+                <p><em>Typlx is open-source. Contributions welcome. Also available as a mobile keyboard for Android and iOS.</em></p>
+                <p><em>Last updated: June 2026</em></p>
+
+                <div class="blog-post__cta">
+                    <p>Ready to try Typlx?</p>
+                    <a href="../index.html#install" class="btn btn--primary">Install Free</a>
+                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" class="btn btn--outline" target="_blank" rel="noopener">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><div class="container"><div class="footer__bottom"><p>&copy; 2026 Typlx. Open source under the MIT License.</p></div></div></footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>
