@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Typlx</title>
-    <meta name="description" content="Typlx privacy policy. Your text never leaves your browser. No data collection, no tracking.">
+    <meta name="description" content="Typlx privacy policy — Android keyboard and Chrome extension. No analytics or user tracking. Text sent only to the API you configure.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <style>
@@ -44,15 +44,67 @@
         <div class="container">
             <div class="privacy__content">
                 <h1>Privacy Policy</h1>
-                <p class="privacy__updated">Last updated: April 2026</p>
+                <p class="privacy__updated">Last updated: July 2026</p>
 
-                <h2>The Short Version</h2>
                 <p>
-                    Typlx does not collect, store, or transmit your personal data or the text you
-                    type. Your writing stays in your browser and is never sent to any server.
+                    Typlx offers two products — a <strong>Chrome browser extension</strong> and an
+                    <strong>Android keyboard</strong>. They handle data differently; both are described below.
                 </p>
 
-                <h2>What We Don't Collect</h2>
+                <h2>Typlx Android Keyboard</h2>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">How text is processed</h3>
+                <p>
+                    When you tap "Fix Grammar", use the tone rewriter, or enable auto-suggest, your text is
+                    sent over HTTPS to the AI API endpoint <strong>you configure</strong> in Settings
+                    (e.g. OpenAI, Groq, a local Ollama server). Typlx does not operate this endpoint and
+                    never receives a copy of your text. The request goes directly from your device to the
+                    server you choose.
+                </p>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">API token storage</h3>
+                <p>
+                    Your API token is stored exclusively on your device using AES-256-GCM encryption
+                    (Android Jetpack Security Crypto / EncryptedSharedPreferences). It is never transmitted
+                    to Typlx servers.
+                </p>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">Crash reporting</h3>
+                <p>
+                    The Android keyboard uses <strong>Firebase Crashlytics</strong> to collect anonymous
+                    crash reports. When the app crashes, a report is sent to Google/Firebase containing
+                    the stack trace, device model, Android version, and app version. No text you type is
+                    included in crash reports. You can opt out of crash reporting in
+                    <strong>Settings &rsaquo; Privacy</strong>.
+                </p>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">What we do not collect</h3>
+                <ul>
+                    <li>We do not collect the text you type or submit for grammar correction</li>
+                    <li>We do not use advertising identifiers or track usage behaviour</li>
+                    <li>We do not require a Typlx account</li>
+                    <li>We do not sell data to third parties</li>
+                </ul>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">Third-party services</h3>
+                <ul>
+                    <li><strong>Firebase Crashlytics</strong> (Google) — crash reports only; see
+                        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a></li>
+                    <li><strong>Your chosen AI provider</strong> — text you submit for grammar correction
+                        is governed by that provider's privacy policy</li>
+                </ul>
+
+                <hr style="margin: 40px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                <h2>Typlx Chrome Extension</h2>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">The Short Version</h3>
+                <p>
+                    The Chrome extension sends your text to the AI API endpoint you configure. It does
+                    not send data to Typlx servers or use analytics.
+                </p>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">What we don't collect</h3>
                 <ul>
                     <li>We do not collect the text you type or check</li>
                     <li>We do not track your browsing history or habits</li>
@@ -61,45 +113,40 @@
                     <li>We do not require an account or email address</li>
                 </ul>
 
-                <h2>How Typlx Works</h2>
-                <p>
-                    Typlx is a browser extension that performs grammar and spelling checks locally
-                    in your browser. All text processing happens on your device. The extension does
-                    not communicate with external servers for text analysis.
-                </p>
-
-                <h2>Open Source Transparency</h2>
-                <p>
-                    Typlx is open source. You can inspect every line of code to verify our privacy
-                    claims. Our source code is available at
-                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" target="_blank" rel="noopener">
-                        github.com/typlx/chrome-grammar-fix-extension</a>.
-                </p>
-
-                <h2>Browser Permissions</h2>
-                <p>
-                    Typlx requests only the minimum browser permissions needed to function:
-                </p>
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">Browser permissions</h3>
                 <ul>
                     <li><strong>Active tab access</strong> &mdash; to read and check text on the current page</li>
                     <li><strong>Storage</strong> &mdash; to save your preferences locally in your browser</li>
                 </ul>
+
+                <h3 style="font-size:1.05rem; font-weight:600; margin-top:20px; margin-bottom:8px;">Source code</h3>
                 <p>
-                    These permissions are used exclusively for the extension's core functionality.
-                    No data collected through these permissions is transmitted externally.
+                    <a href="https://github.com/typlx/chrome-grammar-fix-extension" target="_blank" rel="noopener">
+                        github.com/typlx/chrome-grammar-fix-extension</a>
                 </p>
+
+                <hr style="margin: 40px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                <h2>Open Source</h2>
+                <p>
+                    All Typlx products are open source. You can inspect every line of code to verify
+                    our privacy claims.
+                </p>
+                <ul>
+                    <li>Android keyboard: <a href="https://github.com/typlx/android-grammar-keyboard" target="_blank" rel="noopener">github.com/typlx/android-grammar-keyboard</a></li>
+                    <li>Chrome extension: <a href="https://github.com/typlx/chrome-grammar-fix-extension" target="_blank" rel="noopener">github.com/typlx/chrome-grammar-fix-extension</a></li>
+                </ul>
 
                 <h2>Changes to This Policy</h2>
                 <p>
-                    If we ever change this policy, we will update this page and the "last updated"
-                    date above. Since Typlx is open source, any changes to data handling would
-                    also be visible in the public code repository.
+                    If we change this policy, we will update this page and the "last updated" date above.
+                    Any changes to data handling are also visible in the public code repositories.
                 </p>
 
                 <h2>Contact</h2>
                 <p>
                     Questions about privacy? Open an issue on our
-                    <a href="https://github.com/typlx/chrome-grammar-fix-extension/issues" target="_blank" rel="noopener">GitHub repository</a>.
+                    <a href="https://github.com/typlx/android-grammar-keyboard/issues" target="_blank" rel="noopener">GitHub repository</a>.
                 </p>
             </div>
         </div>
